@@ -62,33 +62,23 @@ func createWire(instrs string) map[point]int {
 			panic(err)
 		}
 
-		switch dir {
-		case "R":
-			for i := 1; i <= dist; i++ {
-				steps++
+		for i := 1; i <= dist; i++ {
+			steps++
+			switch dir {
+			case "R":
 				cur.x++
-				m[cur] = steps
-			}
-		case "L":
-			for i := 1; i <= dist; i++ {
-				steps++
+			case "L":
 				cur.x--
-				m[cur] = steps
-			}
-		case "U":
-			for i := 1; i <= dist; i++ {
-				steps++
+			case "U":
 				cur.y++
-				m[cur] = steps
-			}
-		case "D":
-			for i := 1; i <= dist; i++ {
-				steps++
+			case "D":
 				cur.y--
+			default:
+				panic(instr)
+			}
+			if previousSteps, ok := m[cur]; !ok || steps < previousSteps {
 				m[cur] = steps
 			}
-		default:
-			panic(instr)
 		}
 	}
 
